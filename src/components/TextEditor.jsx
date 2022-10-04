@@ -38,6 +38,7 @@ export default class TextEditor extends Component {
             style={{ resize: "none" }}
             rows={3}
             disabled
+            name="description"
             value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
           ></textarea>
         </Card>

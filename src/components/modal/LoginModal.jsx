@@ -1,8 +1,72 @@
-import { Button, Form, Modal } from "react-bootstrap";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
 import Leaf from "../../assets/icons/LEAF.png";
 import Map from "../../assets/icons/map.png";
+import React, { useContext, useState } from "react";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { API } from "../../config/api";
+import { UserContext } from "../../context/useContext";
 
-function Example({ handleClose, show }) {
+function Example({ handleClose, show, setShow, setShowR }) {
+  const switchRegister = () => {
+    setShowR(true);
+    setShow(false);
+  };
+
+  const [state, dispatch] = useContext(UserContext);
+  const [message, setMessage] = useState(null);
+
+  //login
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  // const { email, password } = form;
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const navigate = useNavigate();
+
+  const handleSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault();
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const body = JSON.stringify(form);
+      console.log(body);
+      const response = await API.post("/login", body, config);
+
+      if (response?.status === 200) {
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: response.data.data,
+        });
+
+        if (response.data.data.role === "admin") {
+          navigate("/transaction");
+        } else {
+          navigate("/");
+        }
+      }
+      console.log(response);
+    } catch (error) {
+      const alert = <Alert variant="danger">Login Failed</Alert>;
+      setMessage(alert);
+      console.log(error);
+    }
+  });
+
   return (
     <>
       <Modal className="mt-3 modalregister" show={show} onHide={handleClose}>
@@ -34,24 +98,49 @@ function Example({ handleClose, show }) {
             <h2 className="text-center fw-bold">Login </h2>
           </div>
           <div style={{ marginBottom: "10%" }}>
-            <Form>
-              <Form.Group className="mb-3" controlId="emailLogin">
+            <Form onSubmit={(e) => handleSubmit.mutate(e)}>
+              {message && message}
+              <Form.Group className="mb-3">
                 <Form.Label className="fw-bold fs-5">Email</Form.Label>
-                <Form.Control type="email" placeholder="" autoFocus />
+                <Form.Control
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder=""
+                  onChange={handleChange}
+                  autoFocus
+                />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="passwordLogin">
+              <Form.Group className="mb-3">
                 <Form.Label className="fw-bold fs-5">Password</Form.Label>
-                <Form.Control type="password" placeholder="" autoFocus />
+                <Form.Control
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder=""
+                  onChange={handleChange}
+                  autoFocus
+                />
               </Form.Group>
+              <div className="mb-4">
+                <Button
+                  variant="primary w-100 fw-semibold fs-4"
+                  onClick={handleClose}
+                  type="submit"
+                >
+                  Login
+                </Button>
+                <p>
+                  Already Have an Account? Klik{" "}
+                  <strong
+                    style={{ cursor: "pointer" }}
+                    onClick={switchRegister}
+                  >
+                    Here
+                  </strong>
+                </p>
+              </div>
             </Form>
-          </div>
-          <div className="mb-4">
-            <Button
-              variant="primary w-100 fw-semibold fs-4"
-              onClick={handleClose}
-            >
-              Login
-            </Button>
           </div>
         </div>
       </Modal>

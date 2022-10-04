@@ -3,6 +3,10 @@
   margin-left: 5%;
 }
 
+.textdd {
+  font-weight: bold;
+}
+
 /* untuk home */
 .BGHome {
   margin-top: -75px;
@@ -69,6 +73,8 @@
 
 .imgdtl {
   width: 90%;
+  height: 700px;
+  object-fit: cover;
 }
 
 .text_dtl {

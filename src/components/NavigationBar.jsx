@@ -1,10 +1,27 @@
 import { Button, Container, Navbar } from "react-bootstrap";
 import iconTJ from "../assets/icons/icontj.png";
+import Icontj from "../assets/icons/icontjb.png";
 import { useState } from "react";
 import LoginModal from "./modal/LoginModal";
 import RegisterModal from "./modal/RegisterModal";
+import { UserContext } from "../context/useContext";
+import React, { useContext } from "react";
+import { Dropdown } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import userPhoto from "../assets/images/userPhoto.png";
+import userdd from "../assets/icons/userdd.png";
+import daundd from "../assets/icons/daundd.png";
+import pitadd from "../assets/icons/pitadd.png";
+import logoutdd from "../assets/icons/logoutdd.png";
 
 function NavBar() {
+  const [state, dispatch] = useContext(UserContext);
+  const isLogin = state.isLogin;
+  let navigate = useNavigate();
+
+  console.log("ini state user", state);
+  console.log("state Login", isLogin);
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -20,40 +37,108 @@ function NavBar() {
     setShow(false);
   };
   console.log("rshow", registerShow);
+
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT",
+    });
+    navigate("/");
+  };
+
   return (
-    <Navbar className="sticky-top w-100 shadow" bg="transparent" expand="lg">
+    <Navbar
+      className={isLogin ? "sticky-top w-100 shadow" : "sticky-top w-100 "}
+      bg={isLogin ? "light" : "transparent"}
+      expand="lg"
+    >
       <Container fluid>
         <div className="icon">
-          <Navbar.Brand href="#">
-            <img src={iconTJ} className="shadow" alt="" />
+          <Navbar.Brand as={Link} to={"/"}>
+            {isLogin ? (
+              <img src={Icontj} alt="" />
+            ) : (
+              <img src={iconTJ} alt="" />
+            )}
           </Navbar.Brand>
         </div>
         <div className="ms-auto">
-          <Navbar.Collapse id="navbarScroll" className="w-100">
-            <div className="w-50">
-              <Button
-                className="text-dark fw-semibold me-2 w-100 px-4"
-                variant="outline-light"
-                onClick={handleShow}
-              >
-                Login
-              </Button>
-              <LoginModal handleClose={handleClose} show={show} />
-            </div>
-            <div className="w-50">
-              <Button
-                className="btn-primary fw-semibold text-light ms-2 w-100  px-4"
-                variant="outline-primary"
-                onClick={handleShowR}
-              >
-                Register
-              </Button>
-              <RegisterModal
-                handleCloseR={handleCloseR}
-                registerShow={registerShow}
-              />
-            </div>
-          </Navbar.Collapse>
+          {isLogin ? (
+            <Dropdown style={{ marginRight: "60px" }}>
+              <Dropdown.Toggle variant="light" id="dropdown-basic">
+                <img src={userPhoto} width={40} alt="user" />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu className="fw-bold" variant="light">
+                <Dropdown.Item className="fw-semibold" as={Link} to="/profile">
+                  <img
+                    src={userdd}
+                    style={{ width: "20px", marginRight: "10px" }}
+                    alt=""
+                  />
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="fw-semibold"
+                  as={Link}
+                  to="/newjourney"
+                >
+                  <img
+                    src={daundd}
+                    style={{ width: "20px", marginRight: "10px" }}
+                    alt=""
+                  />
+                  NewJourney
+                </Dropdown.Item>
+                <Dropdown.Item className="fw-semibold" as={Link} to="/bookmark">
+                  <img
+                    src={pitadd}
+                    style={{ width: "20px", marginRight: "10px" }}
+                    alt=""
+                  />
+                  Bookmark
+                </Dropdown.Item>
+                <Dropdown.Divider className="bg-light dropDivid" />
+                <Dropdown.Item
+                  className="fw-semibold"
+                  href="#"
+                  onClick={logout}
+                >
+                  <img
+                    src={logoutdd}
+                    style={{ width: "20px", marginRight: "10px" }}
+                    alt=""
+                  />
+                  Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            <Navbar.Collapse id="navbarScroll" className="w-100">
+              <div className="w-50">
+                <Button
+                  className="text-dark fw-semibold me-2 w-100 px-4"
+                  variant="outline-light"
+                  onClick={handleShow}
+                >
+                  Login
+                </Button>
+                <LoginModal handleClose={handleClose} show={show} />
+              </div>
+              <div className="w-50">
+                <Button
+                  className="btn-primary fw-semibold text-light ms-2 w-100  px-4"
+                  variant="outline-primary"
+                  onClick={handleShowR}
+                >
+                  Register
+                </Button>
+                <RegisterModal
+                  handleCloseR={handleCloseR}
+                  registerShow={registerShow}
+                />
+              </div>
+            </Navbar.Collapse>
+          )}
           <Navbar.Toggle aria-controls="navbarScroll" />
         </div>
       </Container>
