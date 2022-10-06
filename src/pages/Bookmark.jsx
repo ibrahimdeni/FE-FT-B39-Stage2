@@ -74,7 +74,7 @@ export default function BookMark() {
         <Layout />
         <h1 className="fw-bold title_detail ms-5 ps-3">Bookmark</h1>
       </div>
-      <div className="">
+      <div className="px-4">
         <div className="overflow-hidden w-100" id="">
           <Row md={4} className="">
             {bookmarks?.map((bookmark, index) => {
