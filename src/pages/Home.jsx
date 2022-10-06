@@ -1,8 +1,8 @@
 import Layout from "../components/NavigationBar";
-import Journey from "../components/Journey";
 import Bookmarkcards from "../components/Bookmarkcards";
 import { UserContext } from "../context/useContext";
 import React, { useContext } from "react";
+// import Journey from "../components/Journey";
 // import BGTJ from "../assets/images/BGTJ.png";
 
 function Home() {
@@ -31,7 +31,9 @@ function Home() {
         </div>
       )}
 
-      <Journey />
+      {/* searchbar */}
+
+      {/* <Journey /> */}
       <Bookmarkcards />
     </>
   );

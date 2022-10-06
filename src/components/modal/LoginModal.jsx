@@ -6,15 +6,16 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../config/api";
 import { UserContext } from "../../context/useContext";
+import Swal from "sweetalert2";
 
-function Example({ handleClose, show, setShow, setShowR }) {
-  const switchRegister = () => {
-    setShowR(true);
-    setShow(false);
-  };
+function Example({ handleClose, show }) {
+  // const switchRegister = () => {
+  //   setShowR(true);
+  //   setShow(false);
+  // };
 
   const [state, dispatch] = useContext(UserContext);
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
 
   //login
   const [form, setForm] = useState({
@@ -59,10 +60,19 @@ function Example({ handleClose, show, setShow, setShowR }) {
           navigate("/");
         }
       }
+      Swal.fire({
+        icon: "success",
+        title: "Login Success!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       console.log(response);
     } catch (error) {
-      const alert = <Alert variant="danger">Login Failed</Alert>;
-      setMessage(alert);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Login Failed!",
+      });
       console.log(error);
     }
   });
@@ -99,7 +109,7 @@ function Example({ handleClose, show, setShow, setShowR }) {
           </div>
           <div style={{ marginBottom: "10%" }}>
             <Form onSubmit={(e) => handleSubmit.mutate(e)}>
-              {message && message}
+              {/* {message && message} */}
               <Form.Group className="mb-3">
                 <Form.Label className="fw-bold fs-5">Email</Form.Label>
                 <Form.Control
@@ -130,7 +140,7 @@ function Example({ handleClose, show, setShow, setShowR }) {
                 >
                   Login
                 </Button>
-                <p>
+                {/* <p>
                   Already Have an Account? Klik{" "}
                   <strong
                     style={{ cursor: "pointer" }}
@@ -138,7 +148,7 @@ function Example({ handleClose, show, setShow, setShowR }) {
                   >
                     Here
                   </strong>
-                </p>
+                </p> */}
               </div>
             </Form>
           </div>

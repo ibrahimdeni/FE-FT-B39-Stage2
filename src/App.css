@@ -43,7 +43,7 @@
 /* modalregister */
 .modalregister {
   width: 30%;
-  position: absolute;
+  position: fixed;
   left: 35%;
   /* right: 50%; */
   /* background-color: red; */

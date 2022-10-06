@@ -4,12 +4,13 @@ import Map from "../../assets/icons/map.png";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { API } from "../../config/api";
+import Swal from "sweetalert2";
 
-function Example({ handleCloseR, registerShow, setShow, setShowR }) {
-  const switchLogin = () => {
-    setShow(true);
-    setShowR(false);
-  };
+function Example({ handleCloseR, registerShow }) {
+  // const switchLogin = () => {
+  //   setShow(true);
+  //   setShowR(false);
+  // };
 
   const [messages, setMessages] = useState(null);
 
@@ -43,11 +44,18 @@ function Example({ handleCloseR, registerShow, setShow, setShowR }) {
       console.log(body);
       await API.post("/register", body, config);
 
-      const alert = <Alert variant="success">Register Success</Alert>;
-      setMessages(alert);
+      Swal.fire({
+        icon: "success",
+        title: "Registration Success!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
-      const alert = <Alert variant="danger">Register Failed</Alert>;
-      setMessages(alert);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Registration Failed!",
+      });
       console.log(error);
     }
   });
@@ -55,7 +63,7 @@ function Example({ handleCloseR, registerShow, setShow, setShowR }) {
     <>
       <Modal
         className="mt-3 modalregister"
-        style={{ height: "80%" }}
+        style={{ height: "700px" }}
         show={registerShow}
         onHide={handleCloseR}
       >
@@ -88,7 +96,7 @@ function Example({ handleCloseR, registerShow, setShow, setShowR }) {
           </div>
           <div style={{ marginBottom: "10%" }}>
             <Form onSubmit={(e) => handleSubmitRegister.mutate(e)}>
-              {messages && messages}
+              {/* {messages && messages} */}
               <Form.Group className="mb-3">
                 <Form.Label className="fw-bold fs-5">Full Name</Form.Label>
                 <Form.Control
@@ -153,12 +161,12 @@ function Example({ handleCloseR, registerShow, setShow, setShowR }) {
                 >
                   Register
                 </Button>
-                <p>
+                {/* <p>
                   Already Have an Account? Klik{" "}
                   <strong style={{ cursor: "pointer" }} onClick={switchLogin}>
                     Here
                   </strong>
-                </p>
+                </p> */}
               </div>
             </Form>
           </div>

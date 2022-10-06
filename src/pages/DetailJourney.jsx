@@ -1,14 +1,16 @@
 import Layout from "../components/NavigationBar";
-import imgdtl from "../assets/images/imgdtl.png";
+// import imgdtl from "../assets/images/imgdtl.png";
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/useContext";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
+import moment from "moment";
+import Swal from "sweetalert2";
 
 export default function Detail() {
-  const [isLogin, setIsLogin] = useState(false);
+  // const [isLogin, setIsLogin] = useState(false);
   const [state] = useContext(UserContext);
   console.log("ini state detail journey", state);
 
@@ -21,14 +23,25 @@ export default function Detail() {
     return response.data.data;
   });
 
+  // useEffect(() => {
+  //   if (state) setIsLogin(true);
+  //   else {
+  //     setIsLogin(false);
+  //     alert("Silahkan Sign In");
+  //     navigate("/");
+  //   }
+  // }, [state]);
   useEffect(() => {
-    if (state) setIsLogin(true);
-    else {
-      setIsLogin(false);
-      alert("Silahkan Sign In");
+    if (!localStorage.getItem("token")) {
+      Swal.fire({
+        icon: "error",
+        title: "Heyyoo!",
+        text: "You have to login first~",
+      });
+
       navigate("/");
     }
-  }, [state]);
+  }, []);
 
   return (
     <>
@@ -44,7 +57,9 @@ export default function Detail() {
         </div>
       </div>
       <div className="mb-5">
-        <p className="text-primary ms-5 ps-3">{journeys?.created_at}</p>
+        <p className="text-primary ms-5 ps-3">
+          {moment(journeys?.created_at).format("dddd, DD MMMM YYYY, h:mm a")}
+        </p>
       </div>
       <div className="w-100 d-flex mb-5">
         <img

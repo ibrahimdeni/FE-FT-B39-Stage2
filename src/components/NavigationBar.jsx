@@ -13,6 +13,7 @@ import userdd from "../assets/icons/userdd.png";
 import daundd from "../assets/icons/daundd.png";
 import pitadd from "../assets/icons/pitadd.png";
 import logoutdd from "../assets/icons/logoutdd.png";
+import Swal from "sweetalert2";
 
 function NavBar() {
   const [state, dispatch] = useContext(UserContext);
@@ -42,6 +43,12 @@ function NavBar() {
     dispatch({
       type: "LOGOUT",
     });
+    Swal.fire({
+      icon: "success",
+      title: "Logout Success!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     navigate("/");
   };
 
@@ -63,7 +70,7 @@ function NavBar() {
         </div>
         <div className="ms-auto">
           {isLogin ? (
-            <Dropdown style={{ marginRight: "60px" }}>
+            <Dropdown style={{ marginRight: "70px" }}>
               <Dropdown.Toggle variant="light" id="dropdown-basic">
                 <img src={userPhoto} width={40} alt="user" />
               </Dropdown.Toggle>

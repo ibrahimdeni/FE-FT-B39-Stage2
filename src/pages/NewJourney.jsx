@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "react-bootstrap/Alert";
+import Swal from "sweetalert2";
 
 export default function NewJourney() {
   const navigate = useNavigate();
@@ -51,7 +52,12 @@ export default function NewJourney() {
 
       const response = await API.post("/journey", formData, config);
       console.log("IKI RESEKPON 2", response);
-
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/");
 
       // Handling response here
@@ -65,6 +71,19 @@ export default function NewJourney() {
       console.log(error);
     }
   });
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      Swal.fire({
+        icon: "error",
+        title: "Heyyoo!",
+        text: "You have to login first~",
+      });
+
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <Layout />
@@ -85,11 +104,17 @@ export default function NewJourney() {
               onChange={handleChange}
               type="text"
               placeholder=""
+              className="shadow border-info border-opacity-50"
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label className="fw-bold fs-5 mt-3">Main Photo</Form.Label>
-            <Form.Control name="image" onChange={handleChange} type="file" />
+            <Form.Label className="fw-bold fs-5 mt-1">Main Photo</Form.Label>
+            <Form.Control
+              name="image"
+              className="shadow border-info border-opacity-50"
+              onChange={handleChange}
+              type="file"
+            />
           </Form.Group>
           <Form.Group>
             <Form.Label className="fw-bold fs-5 mt-3">Description</Form.Label>
@@ -98,12 +123,16 @@ export default function NewJourney() {
               name="description"
               style={{ resize: "none" }}
               onChange={handleChange}
+              className="shadow border-info border-opacity-50"
               type="text"
             />
             {/* <TextEditor /> */}
           </Form.Group>
           <div className="w-100 d-flex">
-            <Button className="ms-auto mt-3 btn_post fw-semibold" type="submit">
+            <Button
+              className="ms-auto mt-4 btn_post fw-semibold shadow"
+              type="submit"
+            >
               Post
             </Button>
           </div>
