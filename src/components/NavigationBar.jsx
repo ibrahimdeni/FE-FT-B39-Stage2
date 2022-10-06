@@ -8,7 +8,7 @@ import { UserContext } from "../context/useContext";
 import React, { useContext } from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import userPhoto from "../assets/images/userPhoto.png";
+import userPhoto from "../assets/icons/userddnew.png";
 import userdd from "../assets/icons/userdd.png";
 import daundd from "../assets/icons/daundd.png";
 import pitadd from "../assets/icons/pitadd.png";

@@ -1,5 +1,5 @@
 import Layout from "../components/NavigationBar";
-import Aku from "../assets/images/aku.jpg";
+import Aku from "../assets/icons/usernew.png";
 import { UserContext } from "../context/useContext";
 import React, { useContext, useEffect } from "react";
 import { useQuery } from "react-query";
@@ -102,23 +102,32 @@ export default function Profile() {
   return (
     <>
       <Layout />
-      <div className="mt-5 mx-5">
+      <div className="my-3 mx-5">
         <h1 className="fw-bold">Profile</h1>
-        <div className="w-100 d-flex">
-          <img
-            className="img_profile mx-auto rounded-circle border border-5 border-opacity-50 border-primary"
-            src={Aku}
-            alt=""
-          />
-        </div>
-        <div className="text-center mt-2">
-          <p className="fs-3 fw-bold">{state.user.fullname}</p>
-          <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
-            {state.user.email}
-          </p>
+        <div className="d-flex" style={{ height: "200px", marginTop: "30px" }}>
+          <div className="w-25 d-flex">
+            <img
+              className="img_profile w-50 mx-auto rounded-5 border border-5 border-opacity-50 border-primary"
+              style={{ objectFit: "cover" }}
+              src={Aku}
+              alt=""
+            />
+          </div>
+          <div className="text-center w-75 pt-4">
+            <p className="fs-3 fw-bold">{state.user.fullname}</p>
+            <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
+              {state.user.email}
+            </p>
+            <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
+              {state.user.phone}
+            </p>
+            <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
+              {state.user.address}
+            </p>
+          </div>
         </div>
       </div>
-      <div className="">
+      <div className="px-5">
         <div className="overflow-hidden w-100" id="">
           <Row md={4} className="">
             {journeys?.map((jurney, index) => {
