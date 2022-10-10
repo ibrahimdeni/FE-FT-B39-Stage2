@@ -49,7 +49,7 @@ export default function BookMark() {
 
       const response = await API.delete(`/bookmark/${bookmarkId}`, config);
       console.log("ini respon delete", response);
-      navigate("/");
+      navigate("/profile");
       // navigate("/profile");
     } catch (error) {
       console.log(error);

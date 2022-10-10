@@ -115,7 +115,7 @@ function BasicExample() {
                           Swal.fire({
                             title: "Do you want to bookmark this Journey?",
                             showDenyButton: true,
-                            showCancelButton: true,
+                            // showCancelButton: true,
                             confirmButtonText: "Save",
                             denyButtonText: `Don't save`,
                           }).then((result) => {

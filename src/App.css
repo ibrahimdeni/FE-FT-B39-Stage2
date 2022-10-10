@@ -97,3 +97,7 @@
 .btn_post {
   width: 20%;
 }
+
+.Dropdown .Dropdown.Toggle::after {
+  content: none;
+}

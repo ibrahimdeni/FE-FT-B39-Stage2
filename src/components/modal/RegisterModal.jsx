@@ -62,8 +62,9 @@ function Example({ handleCloseR, registerShow }) {
   return (
     <>
       <Modal
-        className="mt-3 modalregister"
+        className="modalregister"
         style={{ height: "700px" }}
+        position="absolute"
         show={registerShow}
         onHide={handleCloseR}
       >
@@ -91,13 +92,13 @@ function Example({ handleCloseR, registerShow }) {
           }}
         />
         <div className="mx-5">
-          <div className="my-5">
+          <div className="my-2">
             <h2 className="text-center fw-bold">Register </h2>
           </div>
           <div style={{ marginBottom: "10%" }}>
             <Form onSubmit={(e) => handleSubmitRegister.mutate(e)}>
               {/* {messages && messages} */}
-              <Form.Group className="mb-3">
+              <Form.Group className="">
                 <Form.Label className="fw-bold fs-5">Full Name</Form.Label>
                 <Form.Control
                   type="text"
@@ -108,7 +109,7 @@ function Example({ handleCloseR, registerShow }) {
                   autoFocus
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
+              <Form.Group className="">
                 <Form.Label className="fw-bold fs-5">Email</Form.Label>
                 <Form.Control
                   type="email"
@@ -119,7 +120,7 @@ function Example({ handleCloseR, registerShow }) {
                   autoFocus
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
+              <Form.Group className="">
                 <Form.Label className="fw-bold fs-5">Password</Form.Label>
                 <Form.Control
                   type="password"
@@ -130,7 +131,7 @@ function Example({ handleCloseR, registerShow }) {
                   autoFocus
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
+              <Form.Group className="">
                 <Form.Label className="fw-bold fs-5">Phone</Form.Label>
                 <Form.Control
                   type="number"

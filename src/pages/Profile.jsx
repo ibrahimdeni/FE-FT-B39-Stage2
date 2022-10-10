@@ -1,21 +1,26 @@
-import Layout from "../components/NavigationBar";
-import Aku from "../assets/icons/usernew.png";
-import { UserContext } from "../context/useContext";
+import pitabookmark from "../assets/icons/pitabookmark.png";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import React, { useContext, useEffect } from "react";
+import icondelete from "../assets/icons/delete.jpg";
+import { UserContext } from "../context/useContext";
+import Layout from "../components/NavigationBar";
+import { useNavigate } from "react-router-dom";
+import Aku from "../assets/icons/usernew.png";
+import { Row, Col } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { API } from "../config/api";
-import Card from "react-bootstrap/Card";
-import { Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import pitabookmark from "../assets/icons/pitabookmark.png";
-import icondelete from "../assets/icons/delete.jpg";
-import moment from "moment";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import moment from "moment";
+// import { useState } from "react";
 
 export default function Profile() {
   const [state] = useContext(UserContext);
   console.log("state di Profile : ", state.user);
+
+  // const [journeyData, setJourneyData] = useState([]);
 
   const navigate = useNavigate();
 
@@ -29,6 +34,9 @@ export default function Profile() {
       (data) => data.user.id === state.user.id
     );
     console.log("resultFilter nihh :", resultFilter);
+
+    // setJourneyData(resultFilter);
+    // journeyData.push(resultFilter);
     return resultFilter;
   });
 
@@ -102,7 +110,7 @@ export default function Profile() {
   return (
     <>
       <Layout />
-      <div className="my-3 mx-5">
+      <div className="my-3 mx-5 bg-danger">
         <h1 className="fw-bold">Profile</h1>
         <div className="d-flex" style={{ height: "200px", marginTop: "30px" }}>
           <div className="w-25 d-flex">
@@ -127,7 +135,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="px-5">
+      <div className="px-5 bg-warning">
         <div className="overflow-hidden w-100" id="">
           <Row md={4} className="">
             {journeys?.map((jurney, index) => {
@@ -144,73 +152,107 @@ export default function Profile() {
                       s
                       src={jurney.image}
                     />
-                    <img
-                      src={pitabookmark}
+                    <Dropdown
                       style={{
                         position: "absolute",
                         cursor: "pointer",
-                        marginLeft: "88%",
-                      }}
-                      alt=""
-                      className="mt-1"
-                      onClick={(e) => {
-                        // setSelectedJourneyId(jurney.id);
-                        Swal.fire({
-                          title: "Do you want to bookmark this Journey?",
-                          showDenyButton: true,
-                          showCancelButton: true,
-                          confirmButtonText: "Save",
-                          denyButtonText: `Don't save`,
-                        }).then((result) => {
-                          /* Read more about isConfirmed, isDenied below */
-                          if (result.isConfirmed) {
-                            Swal.fire({
-                              icon: "success",
-                              title: "Success!",
-                              showConfirmButton: true,
-                              onClick: handleBookmark(e, jurney.id),
-                            });
-                          } else if (result.isDenied) {
-                            Swal.fire("The journey is not saved", "", "info");
-                          }
-                        });
-                      }}
-                    />
-                    <img
-                      src={icondelete}
-                      style={{
-                        position: "absolute",
-                        cursor: "pointer",
-                        marginLeft: "88%",
-                        marginTop: "13%",
+                        marginLeft: "81%",
+                        marginTop: "1.5%",
                         width: "31px",
-                        backgroundColor: "white",
-                      }}
-                      onClick={(e) => {
-                        // setSelectedJourneyId(jurney.id);
-                        Swal.fire({
-                          title: "Do you want to delete this Journey?",
-                          showDenyButton: true,
-                          showCancelButton: true,
-                          confirmButtonText: "Delete",
-                          denyButtonText: `Don't delete`,
-                        }).then((result) => {
-                          /* Read more about isConfirmed, isDenied below */
-                          if (result.isConfirmed) {
-                            Swal.fire({
-                              icon: "success",
-                              title: "Success!",
-                              showConfirmButton: true,
-                              onClick: handleDelete(e, jurney.id),
-                            });
-                          } else if (result.isDenied) {
-                            Swal.fire("The journey is not deleted", "", "info");
-                          }
-                        });
                       }}
                       className="rounded-circle"
-                      alt=""
-                    />
+                      key="start"
+                      drop="start"
+                      backgroundColor="transparent"
+                    >
+                      <Dropdown.Toggle
+                        variant="light"
+                        id="dropdown-button-start"
+                        key="start"
+                        drop="start"
+                      >
+                        <BiDotsVerticalRounded />
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu className="fw-bold" variant="light">
+                        <Dropdown.Item
+                          className="fw-semibold"
+                          onClick={(e) => {
+                            // setSelectedJourneyId(jurney.id);
+                            Swal.fire({
+                              title: "Do you want to bookmark this Journey?",
+                              showDenyButton: true,
+                              // showCancelButton: true,
+                              confirmButtonText: "Save",
+                              denyButtonText: `Don't save`,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                Swal.fire({
+                                  icon: "success",
+                                  title: "Success!",
+                                  showConfirmButton: true,
+                                  onClick: handleBookmark(e, jurney.id),
+                                });
+                              } else if (result.isDenied) {
+                                Swal.fire(
+                                  "The journey is not saved",
+                                  "",
+                                  "info"
+                                );
+                              }
+                            });
+                          }}
+                        >
+                          <img
+                            src={pitabookmark}
+                            style={{ width: "20pxd", marginRight: "10px" }}
+                            alt=""
+                          />
+                          Bookmark
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="fw-semibold"
+                          onClick={(e) => {
+                            // setSelectedJourneyId(jurney.id);
+                            Swal.fire({
+                              title: "Do you want to delete this Journey?",
+                              showDenyButton: true,
+                              confirmButtonText: "Delete",
+                              denyButtonText: `Don't delete`,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                Swal.fire({
+                                  icon: "success",
+                                  title: "Success!",
+                                  showConfirmButton: true,
+                                  onClick: handleDelete(e, jurney.id),
+                                });
+                              } else if (result.isDenied) {
+                                Swal.fire(
+                                  "The journey is not deleted",
+                                  "",
+                                  "info"
+                                );
+                              }
+                            });
+                          }}
+                        >
+                          <img
+                            src={icondelete}
+                            style={{
+                              width: "30px",
+                              marginRight: "10px",
+                              backgroundColor: "white",
+                            }}
+                            alt=""
+                            className="rounded-circle"
+                          />
+                          Delete
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                     <Link
                       to={`/detail/${jurney.id}`}
                       className="text-decoration-none text-dark"
