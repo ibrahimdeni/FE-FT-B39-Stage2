@@ -17,18 +17,21 @@ export default function BookMark() {
 
   const navigate = useNavigate();
 
-  let { data: bookmarks } = useQuery("bookmarksCache", async () => {
-    const response = await API.get("/bookmarks");
-    console.log("response bookmarks", response);
-    const resultResponse = response.data.data;
-    console.log("anuuu bookmarks", bookmarks);
+  let { data: bookmarks, refetch: okeiRefetch } = useQuery(
+    "bookmarksCache",
+    async () => {
+      const response = await API.get("/bookmarks");
+      console.log("response bookmarks", response);
+      const resultResponse = response.data.data;
+      console.log("anuuu bookmarks", bookmarks);
 
-    const resultFilter = resultResponse.filter(
-      (data) => data.user.id === state.user.id
-    );
-    console.log("resultFilter bookmarks nihh:", resultFilter);
-    return resultFilter;
-  });
+      const resultFilter = resultResponse.filter(
+        (data) => data.user.id === state.user.id
+      );
+      console.log("resultFilter bookmarks nihh:", resultFilter);
+      return resultFilter;
+    }
+  );
 
   console.log("test journeys", bookmarks);
 
@@ -49,7 +52,8 @@ export default function BookMark() {
 
       const response = await API.delete(`/bookmark/${bookmarkId}`, config);
       console.log("ini respon delete", response);
-      navigate("/profile");
+      okeiRefetch();
+      navigate("/bookmark");
       // navigate("/profile");
     } catch (error) {
       console.log(error);
