@@ -24,21 +24,24 @@ export default function Profile() {
 
   const navigate = useNavigate();
 
-  let { data: journeys } = useQuery("journeysCache", async () => {
-    const response = await API.get("/journeys");
-    console.log("response journeys", response);
-    const resultResponse = response.data.data;
-    console.log("anuuu", journeys);
+  let { data: journeys, refetch: dataRefecth } = useQuery(
+    "journeysCache",
+    async () => {
+      const response = await API.get("/journeys");
+      console.log("response journeys", response);
+      const resultResponse = response.data.data;
+      console.log("anuuu", journeys);
 
-    const resultFilter = resultResponse.filter(
-      (data) => data.user.id === state.user.id
-    );
-    console.log("resultFilter nihh :", resultFilter);
+      const resultFilter = resultResponse.filter(
+        (data) => data.user.id === state.user.id
+      );
+      console.log("resultFilter nihh :", resultFilter);
 
-    // setJourneyData(resultFilter);
-    // journeyData.push(resultFilter);
-    return resultFilter;
-  });
+      // setJourneyData(resultFilter);
+      // journeyData.push(resultFilter);
+      return resultFilter;
+    }
+  );
 
   console.log("test journeys", journeys);
 
@@ -88,8 +91,9 @@ export default function Profile() {
 
       const response = await API.delete(`/journey/${jurneyId}`, config);
       console.log(response);
-      navigate("/");
-      // navigate("/profile");
+      dataRefecth();
+      // navigate("/");
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
