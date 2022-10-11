@@ -68,7 +68,7 @@ export default function Detail() {
           alt=""
         />
       </div>
-      <div className="d-flex w-100 mb-5 bg-dark">
+      <div className="d-flex w-100 mb-5">
         <div className="text_dtl mx-auto">
           <p>
             <span className="tab-dtl"></span>
