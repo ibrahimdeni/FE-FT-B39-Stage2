@@ -143,10 +143,10 @@ function BasicExample() {
                     >
                       <Card.Body>
                         <div>
-                          <h5>{jurney.title}</h5>
+                          <h5>{jurney.title.slice(0, 20)} ..</h5>
                           <p
                             className="text-muted"
-                            style={{ fontSize: "13px" }}
+                            style={{ fontSize: "12px" }}
                           >
                             {moment(jurney.created_at).format(
                               "dddd, DD MMMM YYYY"
@@ -154,13 +154,19 @@ function BasicExample() {
                           </p>
                           <p
                             className="text-muted"
-                            style={{ fontSize: "13px", marginTop: "-17px" }}
+                            style={{ fontSize: "12px", marginTop: "-17px" }}
                           >
                             {jurney.user.fullname}
                           </p>
                         </div>
-                        <Card.Text style={{ fontSize: "14px" }}>
-                          {jurney.description}
+                        <Card.Text
+                          style={{
+                            fontSize: "14px",
+                            textAlign: "justify",
+                            marginTop: "-10px",
+                          }}
+                        >
+                          {jurney.description.slice(0, 145)} ...
                         </Card.Text>
                       </Card.Body>
                     </Link>

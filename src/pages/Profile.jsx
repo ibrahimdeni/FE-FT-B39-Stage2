@@ -110,9 +110,12 @@ export default function Profile() {
   return (
     <>
       <Layout />
-      <div className="my-3 mx-5 bg-danger">
+      <div className="mt-3 mx-5 p-3">
         <h1 className="fw-bold">Profile</h1>
-        <div className="d-flex" style={{ height: "200px", marginTop: "30px" }}>
+        <div
+          className="d-flex py-3 shadow border border-5 rounded-5"
+          style={{ height: "200px", marginTop: "30px" }}
+        >
           <div className="w-25 d-flex">
             <img
               className="img_profile w-50 mx-auto rounded-5 border border-5 border-opacity-50 border-primary"
@@ -123,19 +126,19 @@ export default function Profile() {
           </div>
           <div className="text-center w-75 pt-4">
             <p className="fs-3 fw-bold">{state.user.fullname}</p>
-            <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
+            <p className="fs-6 fw-semibold" style={{ marginTop: "-17px" }}>
               {state.user.email}
             </p>
-            <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
+            <p className="fs-6 fw-semibold" style={{ marginTop: "-17px" }}>
               {state.user.phone}
             </p>
-            <p className="fs-6 text-muted" style={{ marginTop: "-17px" }}>
+            <p className="fs-6 fw-semibold" style={{ marginTop: "-17px" }}>
               {state.user.address}
             </p>
           </div>
         </div>
       </div>
-      <div className="px-5 bg-warning">
+      <div className="px-5">
         <div className="overflow-hidden w-100" id="">
           <Row md={4} className="">
             {journeys?.map((jurney, index) => {
@@ -149,7 +152,6 @@ export default function Profile() {
                       variant="top"
                       style={{ objectFit: "cover" }}
                       height="180px"
-                      s
                       src={jurney.image}
                     />
                     <Dropdown
@@ -259,10 +261,10 @@ export default function Profile() {
                     >
                       <Card.Body>
                         <div>
-                          <h5>{jurney.title}</h5>
+                          <h5>{jurney.title.slice(0, 20)} ..</h5>
                           <p
                             className="text-muted"
-                            style={{ fontSize: "13px" }}
+                            style={{ fontSize: "12px" }}
                           >
                             {moment(jurney.created_at).format(
                               "dddd, DD MMMM YYYY"
@@ -270,14 +272,20 @@ export default function Profile() {
                           </p>
                           <p
                             className="text-muted"
-                            style={{ fontSize: "13px", marginTop: "-17px" }}
+                            style={{ fontSize: "12px", marginTop: "-17px" }}
                           >
                             {jurney.user.fullname}
                           </p>
                         </div>
-                        <Card.Text style={{ fontSize: "14px" }}>
-                          {jurney.description}
-                        </Card.Text>
+                        <p
+                          style={{
+                            fontSize: "14px",
+                            textAlign: "justify",
+                            marginTop: "-10px",
+                          }}
+                        >
+                          {jurney.description.slice(0, 145)} ...
+                        </p>
                       </Card.Body>
                     </Link>
                   </Card>

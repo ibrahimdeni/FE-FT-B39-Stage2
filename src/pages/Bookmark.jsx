@@ -132,10 +132,10 @@ export default function BookMark() {
                     >
                       <Card.Body>
                         <div>
-                          <h5>{bookmark.journey.title}</h5>
+                          <h5>{bookmark.journey.title.slice(0, 20)} ..</h5>
                           <p
                             className="text-muted"
-                            style={{ fontSize: "13px" }}
+                            style={{ fontSize: "12px" }}
                           >
                             {moment(bookmark.journey.created_at).format(
                               "dddd, DD MMMM YYYY"
@@ -143,13 +143,19 @@ export default function BookMark() {
                           </p>
                           <p
                             className="text-muted"
-                            style={{ fontSize: "13px", marginTop: "-17px" }}
+                            style={{ fontSize: "12px", marginTop: "-17px" }}
                           >
                             {bookmark.journey.user.fullname}
                           </p>
                         </div>
-                        <Card.Text style={{ fontSize: "14px" }}>
-                          {bookmark.journey.description}
+                        <Card.Text
+                          style={{
+                            fontSize: "14px",
+                            textAlign: "justify",
+                            marginTop: "-10px",
+                          }}
+                        >
+                          {bookmark.journey.description.slice(0, 145)} ...
                         </Card.Text>
                       </Card.Body>
                     </Link>

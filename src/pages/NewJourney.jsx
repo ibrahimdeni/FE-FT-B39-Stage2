@@ -12,12 +12,15 @@ export default function NewJourney() {
   const navigate = useNavigate();
   const [preview, setPreview] = useState(null); // preview foto
   const [message, setMessage] = useState("");
+  // const [selectedFile, setSelectedFile] = useState();
+  // const [npreview, setNpreview] = useState();
   const [form, setForm] = useState({
     title: "",
     image: "",
     description: "",
   });
 
+  //ini handle input
   const handleChange = (event) => {
     // console.log("Name: ", event.target.name);
     // console.log("Value: ", event.target.value);
@@ -27,11 +30,13 @@ export default function NewJourney() {
         event.target.type === "file" ? event.target.files : event.target.value,
     });
 
-    if (event.type === "file") {
+    if (event.target.type === "file") {
       let url = URL.createObjectURL(event.target.files[0]);
       setPreview(url);
     }
+    console.log(form);
   };
+  console.log("ini preview", preview);
 
   const handleSubmit = useMutation(async (event) => {
     try {
@@ -97,27 +102,39 @@ export default function NewJourney() {
           onSubmit={(event) => handleSubmit.mutate(event)}
           className="form_NJ mx-auto mt-3"
         >
-          <Form.Group className="mb-3">
-            <Form.Label className="fw-bold fs-5">Title</Form.Label>
-            <Form.Control
-              name="title"
-              onChange={handleChange}
-              type="text"
-              placeholder=""
-              className="shadow border-info border-opacity-50"
+          <div className="d-flex">
+            <div className="w-75">
+              <Form.Group className="mb-3">
+                <Form.Label className="fw-bold fs-5">Title</Form.Label>
+                <Form.Control
+                  name="title"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder=""
+                  className="shadow border-info border-opacity-50"
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className="fw-bold fs-5 mt-1">
+                  Main Photo
+                </Form.Label>
+                <Form.Control
+                  name="image"
+                  className="shadow border-info border-opacity-50"
+                  onChange={handleChange}
+                  type="file"
+                />
+              </Form.Group>
+            </div>
+            <img
+              style={{ width: "100%", height: "170px", objectFit: "cover" }}
+              className="shadow border border-1 rounded-3 w-25 m-2 mt-1 border-info border-opacity-50"
+              src={preview}
+              alt="preview-img"
             />
-          </Form.Group>
+          </div>
           <Form.Group>
-            <Form.Label className="fw-bold fs-5 mt-1">Main Photo</Form.Label>
-            <Form.Control
-              name="image"
-              className="shadow border-info border-opacity-50"
-              onChange={handleChange}
-              type="file"
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label className="fw-bold fs-5 mt-3">Description</Form.Label>
+            <Form.Label className="fw-bold fs-5 mt-2">Description</Form.Label>
             <Form.Control
               as="textarea"
               name="description"
@@ -130,7 +147,7 @@ export default function NewJourney() {
           </Form.Group>
           <div className="w-100 d-flex">
             <Button
-              className="ms-auto mt-4 btn_post fw-semibold shadow"
+              className="m-auto mt-4 btn_post fw-semibold shadow"
               type="submit"
             >
               Post
@@ -138,7 +155,6 @@ export default function NewJourney() {
           </div>
         </Form>
       </div>
-      <div></div>
     </>
   );
 }
