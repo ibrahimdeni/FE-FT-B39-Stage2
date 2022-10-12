@@ -93,7 +93,7 @@ export default function BookMark() {
                       style={{ objectFit: "cover" }}
                       height="180px"
                       s
-                      src={`https://the-journeyv2.herokuapp.com/uploads/${bookmark.journey.image}`}
+                      src={bookmark.journey.image}
                     />
                     <img
                       src={icondelete}
