@@ -13,7 +13,7 @@ import { useQuery } from "react-query";
 import { API } from "../config/api";
 import Swal from "sweetalert2";
 import moment from "moment";
-import AKUU from "../assets/images/AKUU.jpg";
+import AKUU from "../assets/images/profileUser.png";
 
 // import Aku from "../assets/icons/usernew.png";
 // import { useState } from "react";
