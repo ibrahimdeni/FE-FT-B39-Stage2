@@ -5,7 +5,6 @@ import icondelete from "../assets/icons/delete.jpg";
 import { UserContext } from "../context/useContext";
 import Layout from "../components/NavigationBar";
 import { useNavigate } from "react-router-dom";
-import Aku from "../assets/icons/usernew.png";
 import { Row, Col } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -14,6 +13,9 @@ import { useQuery } from "react-query";
 import { API } from "../config/api";
 import Swal from "sweetalert2";
 import moment from "moment";
+import AKUU from "../assets/images/AKUU.jpg";
+
+// import Aku from "../assets/icons/usernew.png";
 // import { useState } from "react";
 
 export default function Profile() {
@@ -124,7 +126,7 @@ export default function Profile() {
             <img
               className="img_profile w-50 mx-auto rounded-5 border border-5 border-opacity-50 border-primary"
               style={{ objectFit: "cover" }}
-              src={Aku}
+              src={AKUU}
               alt=""
             />
           </div>
